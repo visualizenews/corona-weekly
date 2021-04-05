@@ -2,21 +2,36 @@
 	import { onMount } from 'svelte';
 	import axios from 'axios';
 
+	import Chart from './Chart.svelte';
+
 	const DATA_SOURCE = 'https://corona.elezioni.io/data';
 	const START_DATE = '2020-12-25'; // First Friday of the year
+	const CHARTS = [
+		{
+			id: 'cases',
+			title: 'Weekly New Cases',
+		},
+		{
+			id: 'fatalities',
+			title: 'Weekly Fatalities',
+		},
+		{
+			id: 'tests',
+			title: 'Weekly Tests Performed',
+		},
+		{
+			id: 'icus',
+			title: 'Weekly COVID-Related ICU Occupancy',
+		},
+		{
+			id: 'hospitals',
+			title: 'Weekly COVID-Related Hospital Occupancy'
+		}
+	];
 	
 	let data;
-	let italy = {
-		cases: [],
-		fatalities: [],
-		tests: [],
-		icus: [],
-		hospitals: [],
-	};
 
 	onMount(async () => {
-		console.log('mount');
-
 		const rawData = {
 			epicenters: [],
 			generated: '',
@@ -28,47 +43,50 @@
 			tested: [],
 		};
 
-		const getItalia = () => {
-            return axios.get(`${DATA_SOURCE}/italia`);
-        }
+		const italy = {
+			cases: [],
+			fatalities: [],
+			tests: [],
+			icus: [],
+			hospitals: [],
+		};
 
-        const getRegioni = () => {
-            return axios.get(`${DATA_SOURCE}/regioni`);
-        }
+		const fetchData = async () => {
+			const getItalia = () => {
+					return axios.get(`${DATA_SOURCE}/italia`);
+			}
 
-        const getRegioni2020 = () => {
-            return axios.get(`${DATA_SOURCE}/regioni2020`);
-        }
+			const getRegioni = () => {
+					return axios.get(`${DATA_SOURCE}/regioni`);
+			}
 
-        const getProvince = () => {
-            return axios.get(`${DATA_SOURCE}/province`);
-        }
+			const getRegioni2020 = () => {
+					return axios.get(`${DATA_SOURCE}/regioni2020`);
+			}
 
-        Promise.all([getItalia(), getRegioni(), getProvince(), getRegioni2020()])
-            .then((results) => {
-                if (!results[0].data.error) {
-                    rawData.italy.global = results[0].data.data.italy.global;
-                    rawData.tested = results[0].data.data.tested;
-                    rawData.generated = results[0].data.data.generated;
-                }
-                if (!results[1].data.error) {
-                    rawData.italy.regions = results[1].data.data.italy.regions;
-                    rawData.generated = results[0].data.data.generated;
-                }
-                if (!results[2].data.error) {
-                    rawData.italy.provinces = results[2].data.data.italy.provinces;
-                    rawData.generated = results[0].data.data.generated;
-                }
-                if (!results[3].data.error) {
-                    rawData.italy.regions = rawData.italy.regions.concat(results[3].data.data.italy.regions).sort((a,b) => a.datetime > b.datetime ? 1 : -1);
-                    rawData.generated = results[0].data.data.generated;
-                }
-                data = JSON.parse(JSON.stringify(rawData));
+			const getProvince = () => {
+					return axios.get(`${DATA_SOURCE}/province`);
+			}
 
-				const italy_filtered = data.italy.global.filter(d => d.datetime >= START_DATE);
-
-				console.log(italy_filtered);
-
+      Promise.all([getItalia(), getRegioni(), getProvince(), getRegioni2020()]).then((results) => {
+				if (!results[0].data.error) {
+						rawData.italy.global = results[0].data.data.italy.global;
+						rawData.tested = results[0].data.data.tested;
+						rawData.generated = results[0].data.data.generated;
+				}
+				if (!results[1].data.error) {
+						rawData.italy.regions = results[1].data.data.italy.regions;
+						rawData.generated = results[0].data.data.generated;
+				}
+				if (!results[2].data.error) {
+						rawData.italy.provinces = results[2].data.data.italy.provinces;
+						rawData.generated = results[0].data.data.generated;
+				}
+				if (!results[3].data.error) {
+						rawData.italy.regions = rawData.italy.regions.concat(results[3].data.data.italy.regions).sort((a,b) => a.datetime > b.datetime ? 1 : -1);
+						rawData.generated = results[0].data.data.generated;
+				}
+				const italy_filtered = rawData.italy.global.filter(d => d.datetime >= START_DATE);
 				let tmpCases = {};
 				let tmpFatalities = {};
 				let tmpIcus = {};
@@ -131,20 +149,35 @@
 						tmpTests.value = tmpTests.value + d.tested - (italy_filtered[i -1].tested);
 					}
 				});
-				console.log(italy);
-            })
-			.catch((e) => {
+				console.log('italy', italy);
+
+				italy.cases.shift();
+				italy.hospitals.shift();
+				italy.icus.shift();
+				italy.fatalities.shift();
+				italy.tests.shift();
+
+				data = JSON.parse(JSON.stringify(italy));
+      }).catch((e) => {
 				console.log("error", e);
 			});
-    });
+		}
+
+		fetchData();
+  });
 </script>
 
 <main>
 	<div class="wrapper">
-		<h1>Weekly new cases since Jan. 1st, 2021</h1>
-		<div class="chart" id="newCases"></div>
+		<h1>Weekly Progression since Jan. 1st, 2021</h1>
+		{#if data !== undefined}
+			{#each CHARTS as chart}
+				<div class="chart" id="wrapper-{chart.id}">
+					<Chart id="{chart.id}" data="{data}" label="{chart.title}" />
+				</div>
+			{/each}
+		{/if}
 	</div>
-	<pre>{JSON.stringify(italy)}</pre>
 </main>
 
 <style>
@@ -152,10 +185,10 @@
 	.wrapper {
 		border: 1px solid #444;
 		display: block;
-		height: 650px;
+		height: auto;
 		margin: 40px auto;
 		position: relative;
-		width: 650px;
+		width: 750px;
 	}
 
 	h1 {
@@ -170,8 +203,8 @@
 
 	.chart {
 		display: block;
-		height: 620px;
+		height: 175px;
 		position: relative;
-		width: 650px;
+		width: 750px;
 	}
 </style>

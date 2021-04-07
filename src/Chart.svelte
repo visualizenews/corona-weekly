@@ -7,9 +7,12 @@
   export let data;
   export let id;
   export let label;
+  export let charts;
+  export let position;
 
   const W = 750;
   const H = 175;
+  const MONTHS = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'];
 
   let el;
 
@@ -18,49 +21,44 @@
   const chart = chrt.Chrt();
 
   onMount(() => {
-    console.log("onMount");
+    console.log("onMount", Math.min(...data[id].map(d => d.value)));
 
     chart
       .node(el)
       .svg()
       .size(W, H)
       .margins({
-        left: 50,
-        right: 50,
+        bottom: 20,
+        left: 0,
+        right: 0,
       })
       .padding({
         left: 30,
         right: 30,
+        top: 30,
       })
-      //.y([0,50])
-      .x([data[id][0], data[id][data[id].length - 1]], null, { scale: "time" })
+      .x(null, null, { scale: "time" })
+      .y([Math.min(0, ...data[id].map(d => d.value)), null])
       .add(
-        yAxis(3)
-          .orient('left')
-          .setTickPosition('outside')
-          .setLabelPosition('outside')
-          .format(d => d)
-      )
-      .add(
-        xAxis(10)
-          .orient('bottom')
+        xAxis()
+          .zero(0)
+          .orient(position == 0 ? 'top' : 'bottom')
           .interval("month")
           .setTickPosition("outside")
           .setLabelPosition('outside')
-          .format(d => (`${d.getDate()}/${d.getMonth()+1}`))
+          .format(d => (`${MONTHS[d.getMonth()]}`))
       )
       .add(
         chrt
-          .chrtBars()
-          .fill('red')
+          .chrtColumns()
+          .fill('#aaa')
           .color('#444')
           .strokeWidth(1)
           .width(1)
           .data(data[id], (d) => ({
-            x: d.startDay,
+            x: new Date(d.startDay),
             y: d.value,
           }))
-          .color("#f00")
           .add(chrt.chrtLabel(label))
       );
 
@@ -72,7 +70,6 @@
 
 <style>
   .chart {
-    background: #1fc;
     display: block;
     height: 100%;
     margin: 0;

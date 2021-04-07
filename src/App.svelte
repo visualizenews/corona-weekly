@@ -9,24 +9,24 @@
 	const CHARTS = [
 		{
 			id: 'cases',
-			title: 'Weekly New Cases',
-		},
-		{
-			id: 'fatalities',
-			title: 'Weekly Fatalities',
-		},
-		{
-			id: 'tests',
-			title: 'Weekly Tests Performed',
-		},
-		{
-			id: 'icus',
-			title: 'Weekly COVID-Related ICU Occupancy',
+			title: 'New Cases',
 		},
 		{
 			id: 'hospitals',
-			title: 'Weekly COVID-Related Hospital Occupancy'
-		}
+			title: 'Hospital Occupancy'
+		},
+		{
+			id: 'icus',
+			title: 'ICU Occupancy',
+		},
+		{
+			id: 'fatalities',
+			title: 'Fatalities',
+		},
+		{
+			id: 'tests',
+			title: 'Tests Performed',
+		},
 	];
 	
 	let data;
@@ -92,6 +92,8 @@
 				let tmpIcus = {};
 				let tmpHospitals = {};
 				let tmpTests = {};
+
+				console.log('italy_filtered', italy_filtered);
 
 				italy_filtered.forEach((d, i) => {
 					const startDay = new Date(d.datetime);
@@ -169,11 +171,11 @@
 
 <main>
 	<div class="wrapper">
-		<h1>Weekly Progression since Jan. 1st, 2021</h1>
+		<h1>Weekly Progression since Jan. 1<span>st</span>, 2021</h1>
 		{#if data !== undefined}
-			{#each CHARTS as chart}
+			{#each CHARTS as chart, i}
 				<div class="chart" id="wrapper-{chart.id}">
-					<Chart id="{chart.id}" data="{data}" label="{chart.title}" />
+					<Chart id="{chart.id}" data="{data}" label="{chart.title}" position="{i}" charts="{CHARTS.length}" />
 				</div>
 			{/each}
 		{/if}
@@ -194,11 +196,17 @@
 	h1 {
 		display: block;
 		font-size: 16px;
-		font-weight: 400;
-		height: 30px;
+		font-weight: 300;
+		height: 50px;
+		letter-spacing: .1em;
 		line-height: 30px;
 		margin:0;
 		text-align: center;
+		text-transform: uppercase;
+	}
+
+	h1 span {
+		text-transform: lowercase;
 	}
 
 	.chart {

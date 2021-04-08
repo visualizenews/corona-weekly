@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   
   import * as chrt from "chrt";
-  import {yAxis, xAxis, xAxisRange} from 'chrt-axis';
+  import {yAxis, xAxis, xAxisRange, yAxisRange} from 'chrt-axis';
   
   export let data;
   export let id;
@@ -22,13 +22,18 @@
 
   onMount(() => {
     console.log("onMount", position, charts);
+    const max = data[id].reduce((a,d) => ((d.value > a) ? d.value : a), Number.MIN_SAFE_INTEGER);
+    const line = data[id].map((d) => ({
+      startDay: d.startDay,
+      value: max,
+    }));
 
     chart
       .node(el)
       .svg()
       .size(W, H)
       .margins({
-        bottom: 20,
+        bottom: 30,
         left: 0,
         right: 0,
       })
@@ -82,9 +87,9 @@
     chart.add(
       chrt
         .chrtColumns()
-        .fill('#aaa')
-        .color('#444')
-        .strokeWidth(1)
+        .fill(d => ((d.value === max) ? 'red' : 'silver'))
+        .color('transparent')
+        .strokeWidth(0)
         .width(1)
         .data(data[id], (d) => ({
           x: new Date(d.startDay),
@@ -92,17 +97,27 @@
         }))
     );
 
-    chart.add(
-      chrt
-        .chrtLine()
-        .color('#444')
-        .data(data[id], (d) => ({
-          x: new Date(d.startDay),
-          y: d.value,
-        }))
-        .add(chrt.chrtLabel(label))
-    );
+    // chart.add(
+    //   chrt
+    //     .chrtLine()
+    //     .color('#444')
+    //     .data(line, (d) => ({
+    //       x: new Date(d.startDay),
+    //       y: d.value,
+    //     }))
+    //     .add(chrt.chrtLabel(label))
+    // );
 
+    chart.add(
+      yAxis()
+        .hideAxis()
+        .hideLabels()
+        .hideTicks()
+        .add(yAxisRange()
+          .dashed()
+          .from(max)
+        )
+    );
   });
 </script>
 

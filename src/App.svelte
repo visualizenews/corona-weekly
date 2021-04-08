@@ -5,7 +5,7 @@
 	import Chart from './Chart.svelte';
 
 	const DATA_SOURCE = 'https://corona.elezioni.io/data';
-	const START_DATE = '2020-12-25'; // First Friday of the year
+	const START_DATE = '2020-04-24'; // First Friday of the year
 	const CHARTS = [
 		{
 			id: 'cases',
@@ -171,7 +171,7 @@
 
 <main>
 	<div class="wrapper">
-		<h1>Weekly Progression since Jan. 1<span>st</span>, 2021</h1>
+		<h1>Weekly Progression since May 2020</h1>
 		{#if data !== undefined}
 			{#each CHARTS as chart, i}
 				<div class="chart" id="wrapper-{chart.id}">

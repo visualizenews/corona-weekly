@@ -21,7 +21,7 @@
   const chart = chrt.Chrt();
 
   onMount(() => {
-    console.log("onMount", Math.min(...data[id].map(d => d.value)));
+    console.log("onMount", position, charts);
 
     chart
       .node(el)
@@ -38,29 +38,70 @@
         top: 30,
       })
       .x(null, null, { scale: "time" })
-      .y([Math.min(0, ...data[id].map(d => d.value)), null])
-      .add(
+      .y([Math.min(0, ...data[id].map(d => d.value)), null]);
+    if (position == 0) {
+      chart.add(
         xAxis()
           .zero(0)
-          .orient(position == 0 ? 'top' : 'bottom')
+          .orient('top')
           .interval("month")
           .setTickPosition("outside")
           .setLabelPosition('outside')
-          .format(d => (`${MONTHS[d.getMonth()]}`))
-      )
-      .add(
-        chrt
-          .chrtColumns()
-          .fill('#aaa')
-          .color('#444')
-          .strokeWidth(1)
-          .width(1)
-          .data(data[id], (d) => ({
-            x: new Date(d.startDay),
-            y: d.value,
-          }))
-          .add(chrt.chrtLabel(label))
+          .format(d => (MONTHS[d.getMonth()]))
+      ).add(
+        xAxis()
+          .zero(0)
+          .orient('bottom')
+          .interval("month")
+          .hideTicks()
+          .format(d => (''))
       );
+    }
+    if (position < charts - 1 && position > 0) {
+      chart.add(
+        xAxis()
+          .zero(0)
+          .orient('bottom')
+          .interval("month")
+          .hideTicks()
+          .format(d => (''))
+      )
+    } 
+    if (position == charts - 1) {
+      chart.add(
+        xAxis()
+          .zero(0)
+          .orient('bottom')
+          .interval("month")
+          .setTickPosition("outside")
+          .setLabelPosition('outside')
+          .format(d => (MONTHS[d.getMonth()]))
+      );
+    }
+
+    chart.add(
+      chrt
+        .chrtColumns()
+        .fill('#aaa')
+        .color('#444')
+        .strokeWidth(1)
+        .width(1)
+        .data(data[id], (d) => ({
+          x: new Date(d.startDay),
+          y: d.value,
+        }))
+    );
+
+    chart.add(
+      chrt
+        .chrtLine()
+        .color('#444')
+        .data(data[id], (d) => ({
+          x: new Date(d.startDay),
+          y: d.value,
+        }))
+        .add(chrt.chrtLabel(label))
+    );
 
   });
 </script>

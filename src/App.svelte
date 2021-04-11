@@ -5,7 +5,7 @@
 	import Chart from './Chart.svelte';
 
 	const DATA_SOURCE = 'https://corona.elezioni.io/data';
-	const START_DATE = '2020-04-24'; // First Friday of the year
+	const START_DATE = '2020-12-25'; // First Friday of the year
 	const CHARTS = [
 		{
 			id: 'cases',
@@ -86,6 +86,9 @@
 						rawData.italy.regions = rawData.italy.regions.concat(results[3].data.data.italy.regions).sort((a,b) => a.datetime > b.datetime ? 1 : -1);
 						rawData.generated = results[0].data.data.generated;
 				}
+
+
+
 				const italy_filtered = rawData.italy.global.filter(d => d.datetime >= START_DATE);
 				let tmpCases = {};
 				let tmpFatalities = {};
@@ -171,7 +174,7 @@
 
 <main>
 	<div class="wrapper">
-		<h1>Weekly Progression since May 2020</h1>
+		<h1>Weekly Progression since January 1<span>st</span>, 2020</h1>
 		{#if data !== undefined}
 			{#each CHARTS as chart, i}
 				<div class="chart" id="wrapper-{chart.id}">
@@ -180,11 +183,56 @@
 			{/each}
 		{/if}
 	</div>
+	<div class="assets">
+		<svg>
+			<defs>
+				<pattern
+					id="stripes"
+					width="5px"
+					height="5px"
+					patternUnits="userSpaceOnUse"
+					patternContentUnits="userSpaceOnUse"
+					viewBox="0 0 140 140"
+					preserveAspectRatio="none"
+					patternTransform="rotate(-45)"
+				>
+					<line
+						x1="0"
+						x2="140"
+						y1="70"
+						y2="70"
+						stroke-width="20"
+						stroke="#444"
+					/>
+				</pattern>
+				<pattern
+					id="stripes2"
+					width="5px"
+					height="5px"
+					patternUnits="userSpaceOnUse"
+					patternContentUnits="userSpaceOnUse"
+					viewBox="0 0 140 140"
+					preserveAspectRatio="none"
+					patternTransform="rotate(-45)"
+				>
+					<line
+						x1="0"
+						x2="140"
+						y1="70"
+						y2="70"
+						stroke-width="20"
+						stroke="#a00"
+					/>
+				</pattern>
+			</defs>
+		</svg>
+	</div>
 </main>
 
 <style>
 
 	.wrapper {
+		background: #fff;
 		border: 1px solid #444;
 		display: block;
 		height: auto;
@@ -195,8 +243,8 @@
 
 	h1 {
 		display: block;
-		font-size: 16px;
-		font-weight: 300;
+		font-size: 18px;
+		font-weight: 400;
 		height: 50px;
 		letter-spacing: .1em;
 		line-height: 30px;

@@ -8,8 +8,14 @@ html, body {
 body {
 	background: #fff;
 	color: #444;
-	font-family: 'BenchNine', sans-serif;
+	font-family: 'News Cycle', sans-serif;
 	font-size: 16px;
-	font-weight: 300;
+	font-weight: 400;
 	letter-spacing: .1em;
+}
+
+
+
+.axis-label text {
+	font-size: 10px;
 }

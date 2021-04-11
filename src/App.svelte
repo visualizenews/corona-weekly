@@ -203,7 +203,7 @@
 						x2="140"
 						y1="70"
 						y2="70"
-						stroke-width="30"
+						stroke-width="15"
 						stroke="#444"
 					/>
 					<line
@@ -211,7 +211,7 @@
 						x2="70"
 						y1="0"
 						y2="140"
-						stroke-width="30"
+						stroke-width="15"
 						stroke="#444"
 					/>
 				</pattern>
@@ -284,7 +284,7 @@
 
 	h4 {
 		display: block;
-		font-size: 12px;
+		font-size: 10px;
 		font-weight: 400;
 		letter-spacing: .1em;
 		line-height: 1.25;
@@ -298,10 +298,19 @@
 	}
 
 	.chart {
+		/* border-bottom: 1px solid #444; */
 		display: block;
 		height: 150px;
 		position: relative;
 		width: 750px;
+	}
+
+	.chart:nth-child(odd) {
+		background: #fcfcfc;
+	}
+
+	.chart:last-child {
+		border-bottom: inherit;
 	}
 
 	.assets {

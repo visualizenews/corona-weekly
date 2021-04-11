@@ -11,7 +11,7 @@
   export let position;
 
   const W = 750;
-  const H = 175;
+  const H = 150;
   const MONTHS = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'Jun.', 'Jul.', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.'];
 
   let el;
@@ -23,6 +23,8 @@
   onMount(() => {
     const max = Math.max(... data[id].map(d => d.value));
     const maxObj = data[id].find(d => d.value === max);
+    const min = Math.min(... data[id].map(d => d.value));
+    const minObj = data[id].find(d => d.value === min);
     
     console.log('CHART', id, data[id], max, maxObj);
 
@@ -42,6 +44,21 @@
       })
       .x(null, null)
       .y([Math.min(0, ...data[id].map(d => d.value)), null]);
+
+    chart.add(
+      chrt
+        .chrtColumns()
+        .fill(d => ((d.value === max) ? 'url(#stripes2)' : ((d.value === min) ? 'url(#stripes3)' : 'url(#stripes)')))
+        .color(d => ((d.value === max) ? '#444' : '#444'))
+        .strokeWidth(1)
+        .width(.6)
+        .data(data[id], (d, i) => ({
+          x: i, //new Date(d.startDay),
+          y: d.value,
+          startDay: new Date(d.startDay),
+          endDay: new Date(d.endDay),
+        }))
+    );
     if (position == 0) {
       chart.add(
         xAxis()
@@ -52,7 +69,7 @@
           .class('axis-label')
           .format((d) => labelFormat(d))
           .color('#444')
-          .width(2)
+          .width(1)
       ).add(
         xAxis()
           .zero(0)
@@ -60,7 +77,7 @@
           .hideTicks()
           .hideLabels()
           .color('#444')
-          .width(2)
+          .width(1)
       );
     }
     if (position < charts - 1 && position > 0) {
@@ -71,7 +88,7 @@
           .hideTicks()
           .hideLabels()
           .color('#444')
-          .width(2)
+          .width(1)
       )
     } 
     if (position == charts - 1) {
@@ -84,24 +101,9 @@
           .class('axis-label')
           .format((d) => labelFormat(d))
           .color('#444')
-          .width(2)
+          .width(1)
       );
     }
-
-    chart.add(
-      chrt
-        .chrtColumns()
-        .fill(d => ((d.value === max) ? 'url(#stripes2)' : 'url(#stripes)'))
-        .color(d => ((d.value === max) ? '#a00' : '#444'))
-        .strokeWidth(2)
-        .width(.6)
-        .data(data[id], (d, i) => ({
-          x: i, //new Date(d.startDay),
-          y: d.value,
-          startDay: new Date(d.startDay),
-          endDay: new Date(d.endDay),
-        }))
-    );
 
     chart.add(
       yAxis()
@@ -110,8 +112,8 @@
         .hideTicks()
         .add(yAxisRange()
           .dashed()
-          .stroke('#a00')
-          .strokeWidth(2)
+          .stroke('#444')
+          .strokeWidth(1)
           .from(max)
         )
     );

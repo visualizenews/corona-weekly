@@ -182,6 +182,8 @@
 				</div>
 			{/each}
 		{/if}
+		<h4>Data from Italian Civil Protection.
+			Weeks are computed from Friday to Friday, the day the Italian Government and the Italian Scientific Committee review COVID-Related Data.</h4>
 	</div>
 	<div class="assets">
 		<svg>
@@ -194,14 +196,22 @@
 					patternContentUnits="userSpaceOnUse"
 					viewBox="0 0 140 140"
 					preserveAspectRatio="none"
-					patternTransform="rotate(-45)"
+					patternTransform="rotate(45)"
 				>
 					<line
 						x1="0"
 						x2="140"
 						y1="70"
 						y2="70"
-						stroke-width="20"
+						stroke-width="30"
+						stroke="#444"
+					/>
+					<line
+						x1="70"
+						x2="70"
+						y1="0"
+						y2="140"
+						stroke-width="30"
 						stroke="#444"
 					/>
 				</pattern>
@@ -220,8 +230,27 @@
 						x2="140"
 						y1="70"
 						y2="70"
-						stroke-width="20"
-						stroke="#a00"
+						stroke-width="30"
+						stroke="#444"
+					/>
+				</pattern>
+				<pattern
+					id="stripes3"
+					width="5px"
+					height="5px"
+					patternUnits="userSpaceOnUse"
+					patternContentUnits="userSpaceOnUse"
+					viewBox="0 0 140 140"
+					preserveAspectRatio="none"
+					patternTransform="rotate(45)"
+				>
+					<line
+						x1="0"
+						x2="140"
+						y1="70"
+						y2="70"
+						stroke-width="30"
+						stroke="#444"
 					/>
 				</pattern>
 			</defs>
@@ -253,14 +282,32 @@
 		text-transform: uppercase;
 	}
 
+	h4 {
+		display: block;
+		font-size: 12px;
+		font-weight: 400;
+		letter-spacing: .1em;
+		line-height: 1.25;
+		margin: 0;
+		padding: 20px 40px;
+		text-align: center;
+	}
+
 	h1 span {
 		text-transform: lowercase;
 	}
 
 	.chart {
 		display: block;
-		height: 175px;
+		height: 150px;
 		position: relative;
 		width: 750px;
+	}
+
+	.assets {
+		height: 0;
+		opacity: 0;
+		overflow: hidden;
+		width: 0;
 	}
 </style>

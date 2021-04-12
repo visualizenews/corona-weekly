@@ -8,6 +8,7 @@
   export let data;
   export let id;
   export let label;
+  // export let title;
   export let charts;
   export let position;
 
@@ -119,6 +120,12 @@
           .strokeWidth(1)
           .from(max)
         )
+        // ).add(
+        //   chrt.chrtAxisTitle(title)
+        //   .class('title')
+        //   .offset({ x:5, y:-5 })
+        //   .align('right')
+        // )
     );
 
     chart.add(

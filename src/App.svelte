@@ -9,23 +9,28 @@
 	const CHARTS = [
 		{
 			id: 'cases',
-			title: 'Highest Number of<br /><span>New Cases</span>',
+			label: 'Highest Number of<br /><span>New Cases</span>',
+			title: 'New Cases',
 		},
 		{
 			id: 'hospitals',
-			title: 'Highest Increment of<br /><span>Hospital Beds occupancy</span>'
+			label: 'Highest Increment of<br /><span>Hospital Bed occupancy</span>',
+			title: 'Hospital Bed occupancy',
 		},
 		{
 			id: 'icus',
-			title: 'Highest Increment of<br /><span>ICU Beds occupancy</span>',
+			label: 'Highest Increment of<br /><span>ICU Beds occupancy</span>',
+			title: 'ICU Bed occupancy',
 		},
 		{
 			id: 'fatalities',
-			title: 'Highest Number of<br /><span>Fatalities</span>',
+			label: 'Highest Number of<br /><span>Fatalities</span>',
+			title: 'Fatalities',
 		},
 		{
 			id: 'tests',
-			title: 'Highest Number of<br /><span>Tests Performed</span>',
+			label: 'Highest Number of<br /><span>Tests Performed</span>',
+			title: 'Tests',
 		},
 	];
 	
@@ -178,7 +183,7 @@
 		{#if data !== undefined}
 			{#each CHARTS as chart, i}
 				<div class="chart" id="wrapper-{chart.id}">
-					<Chart id="{chart.id}" data="{data}" label="{chart.title}" position="{i}" charts="{CHARTS.length}" />
+					<Chart id="{chart.id}" data="{data}" title="{chart.title}" label="{chart.label}" position="{i}" charts="{CHARTS.length}" />
 				</div>
 			{/each}
 		{/if}

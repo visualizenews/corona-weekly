@@ -46,3 +46,9 @@ body {
 .wrapper > .chart:nth-child(odd) .chrt-annotation.thisWeek {
 	background: #fcfcfc;
 }
+
+/* .chrt-axis-title.title {
+	font-size: 12px;
+	font-weight: 400;
+	text-transform: uppercase;
+} */

@@ -19,3 +19,13 @@ body {
 .axis-label text {
 	font-size: 10px;
 }
+
+.chrt-annotation {
+	font-size: 10px;
+	line-height: 1;
+	transform: translate3d(0, calc(-100% - 5px), 0);
+}
+
+.chrt-annotation span span {
+	text-decoration: underline;
+}

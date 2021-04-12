@@ -2,7 +2,8 @@
   import { onMount } from "svelte";
   
   import * as chrt from "chrt";
-  import {yAxis, xAxis, xAxisRange, yAxisRange} from 'chrt-axis';
+  import {yAxis, xAxis, yAxisRange} from 'chrt-axis';
+  import { chrtAnnotation } from "chrt-annotation";
   
   export let data;
   export let id;
@@ -23,8 +24,10 @@
   onMount(() => {
     const max = Math.max(... data[id].map(d => d.value));
     const maxObj = data[id].find(d => d.value === max);
+    const maxIndex = data[id].findIndex(d => d.value === max);
     const min = Math.min(... data[id].map(d => d.value));
     const minObj = data[id].find(d => d.value === min);
+    const minIndex = data[id].findIndex(d => d.value === min);
     
     console.log('CHART', id, data[id], max, maxObj);
 
@@ -116,6 +119,12 @@
           .strokeWidth(1)
           .from(max)
         )
+    );
+
+    chart.add(
+      chrtAnnotation(`<div>${label}: ${new Intl.NumberFormat('en-EN', {month: 'numeric', day: 'numeric', year: false }).format(maxObj.value)} on ${new Intl.DateTimeFormat('en-US').format(new Date(maxObj.startDay))}</div>`)
+      .top(max)
+      .left(maxIndex)
     );
   });
 </script>

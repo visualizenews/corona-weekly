@@ -9,23 +9,23 @@
 	const CHARTS = [
 		{
 			id: 'cases',
-			title: 'New Cases',
+			title: 'Highest Number of <span>New Cases</span>',
 		},
 		{
 			id: 'hospitals',
-			title: 'Hospital Occupancy'
+			title: 'Highest Increment of <span>Hospital Beds occupancy</span>'
 		},
 		{
 			id: 'icus',
-			title: 'ICU Occupancy',
+			title: 'Highest Increment of <span>ICU Beds occupancy</span>',
 		},
 		{
 			id: 'fatalities',
-			title: 'Fatalities',
+			title: 'Highest Number of <span>Fatalities</span>',
 		},
 		{
 			id: 'tests',
-			title: 'Tests Performed',
+			title: 'Highest Number of <span>Tests Performed</span>',
 		},
 	];
 	
@@ -194,24 +194,40 @@
 					height="5px"
 					patternUnits="userSpaceOnUse"
 					patternContentUnits="userSpaceOnUse"
-					viewBox="0 0 140 140"
+					viewBox="0 0 100 100"
 					preserveAspectRatio="none"
-					patternTransform="rotate(45)"
+					patternTransform="rotate(-45)"
 				>
 					<line
 						x1="0"
-						x2="140"
-						y1="70"
-						y2="70"
-						stroke-width="15"
+						x2="100"
+						y1="46"
+						y2="46"
+						stroke-width="20"
 						stroke="#444"
 					/>
 					<line
-						x1="70"
-						x2="70"
+						x1="0"
+						x2="100"
+						y1="92"
+						y2="92"
+						stroke-width="20"
+						stroke="#444"
+					/>
+					<line
+						x1="46"
+						x2="46"
 						y1="0"
-						y2="140"
-						stroke-width="15"
+						y2="100"
+						stroke-width="20"
+						stroke="#444"
+					/>
+					<line
+						x1="92"
+						x2="92"
+						y1="0"
+						y2="100"
+						stroke-width="20"
 						stroke="#444"
 					/>
 				</pattern>

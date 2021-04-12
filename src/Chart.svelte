@@ -122,9 +122,16 @@
     );
 
     chart.add(
-      chrtAnnotation(`<div>${label}: ${new Date(maxObj.startDay).getMonth() + 1}/${new Date(maxObj.startDay).getDate()} on ${new Intl.DateTimeFormat('en-US').format(new Date(maxObj.startDay))}</div>`)
+      chrtAnnotation(`<div>${label}: ${new Intl.NumberFormat('en-EN').format(maxObj.value)}</div>`)
       .top(max)
       .left(maxIndex)
+    );
+
+    chart.add(
+      chrtAnnotation(`<div>${new Intl.NumberFormat('en-EN').format(data[id][data[id].length -1].value)}</div>`)
+      .top(data[id][data[id].length -1].value)
+      .left(data[id].length -1)
+      .class('thisWeek')
     );
   });
 </script>

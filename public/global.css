@@ -23,9 +23,26 @@ body {
 .chrt-annotation {
 	font-size: 10px;
 	line-height: 1;
-	transform: translate3d(0, calc(-100% - 5px), 0);
+	text-align: center;
+	transform: translate3d(-50%, calc(-100% - 5px), 0);
 }
 
 .chrt-annotation span span {
 	text-decoration: underline;
+}
+
+.chrt-annotation.thisWeek {
+	background: white;
+	transform: translate3d(-50%, calc(-100% - 5px), 0);
+}
+
+
+
+.chrt-annotation.thisWeek {
+	background: white;
+	transform: translate3d(-50%, calc(-100% - 5px), 0);
+}
+
+.wrapper > .chart:nth-child(odd) .chrt-annotation.thisWeek {
+	background: #fcfcfc;
 }

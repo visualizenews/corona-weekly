@@ -9,23 +9,23 @@
 	const CHARTS = [
 		{
 			id: 'cases',
-			title: 'Highest Number of <span>New Cases</span>',
+			title: 'Highest Number of<br /><span>New Cases</span>',
 		},
 		{
 			id: 'hospitals',
-			title: 'Highest Increment of <span>Hospital Beds occupancy</span>'
+			title: 'Highest Increment of<br /><span>Hospital Beds occupancy</span>'
 		},
 		{
 			id: 'icus',
-			title: 'Highest Increment of <span>ICU Beds occupancy</span>',
+			title: 'Highest Increment of<br /><span>ICU Beds occupancy</span>',
 		},
 		{
 			id: 'fatalities',
-			title: 'Highest Number of <span>Fatalities</span>',
+			title: 'Highest Number of<br /><span>Fatalities</span>',
 		},
 		{
 			id: 'tests',
-			title: 'Highest Number of <span>Tests Performed</span>',
+			title: 'Highest Number of<br /><span>Tests Performed</span>',
 		},
 	];
 	
@@ -174,7 +174,7 @@
 
 <main>
 	<div class="wrapper">
-		<h1>Weekly Progression since January 1<span>st</span>, 2020</h1>
+		<h1>Weekly Progression since January 1<span>st</span>, 2021</h1>
 		{#if data !== undefined}
 			{#each CHARTS as chart, i}
 				<div class="chart" id="wrapper-{chart.id}">

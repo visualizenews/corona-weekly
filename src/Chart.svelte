@@ -19,7 +19,7 @@
 
   const chart = chrt.Chrt();
 
-  const labelFormat = (d) => `Week ${new Date(data[id][d].startDay).getDate()}/${new Date(data[id][d].startDay).getMonth() + 1}`;
+  const labelFormat = (d) => `Week ${new Date(data[id][d].startDay).getMonth() + 1}/${new Date(data[id][d].startDay).getDate()}`;
 
   onMount(() => {
     const max = Math.max(... data[id].map(d => d.value));
@@ -122,7 +122,7 @@
     );
 
     chart.add(
-      chrtAnnotation(`<div>${label}: ${new Intl.NumberFormat('en-EN', {month: 'numeric', day: 'numeric', year: false }).format(maxObj.value)} on ${new Intl.DateTimeFormat('en-US').format(new Date(maxObj.startDay))}</div>`)
+      chrtAnnotation(`<div>${label}: ${new Date(maxObj.startDay).getMonth() + 1}/${new Date(maxObj.startDay).getDate()} on ${new Intl.DateTimeFormat('en-US').format(new Date(maxObj.startDay))}</div>`)
       .top(max)
       .left(maxIndex)
     );

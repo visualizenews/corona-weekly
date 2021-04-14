@@ -166,7 +166,6 @@
 				italy.icus.shift();
 				italy.fatalities.shift();
 				italy.tests.shift();
-
 				data = JSON.parse(JSON.stringify(italy));
       }).catch((e) => {
 				console.log("error", e);

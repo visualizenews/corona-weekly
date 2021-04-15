@@ -30,7 +30,7 @@
     const minObj = data[id].find(d => d.value === min);
     const minIndex = data[id].findIndex(d => d.value === min);
     
-    console.log('CHART', id, data[id], max, maxObj);
+    // console.log('CHART', id, data[id], max, maxObj);
 
     chart
       .node(el)

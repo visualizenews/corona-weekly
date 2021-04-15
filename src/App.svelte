@@ -101,7 +101,7 @@
 				let tmpHospitals = {};
 				let tmpTests = {};
 
-				console.log('italy_filtered', italy_filtered);
+				// console.log('italy_filtered', italy_filtered);
 
 				italy_filtered.forEach((d, i) => {
 					const startDay = new Date(d.datetime);
@@ -159,7 +159,7 @@
 						tmpTests.value = tmpTests.value + d.tested - (italy_filtered[i -1].tested);
 					}
 				});
-				console.log('italy', italy);
+				// console.log('italy', italy);
 
 				italy.cases.shift();
 				italy.hospitals.shift();

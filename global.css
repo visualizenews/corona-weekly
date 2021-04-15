@@ -1,0 +1,54 @@
+html, body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+
+body {
+	background: #fff;
+	color: #444;
+	font-family: 'News Cycle', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	letter-spacing: .1em;
+}
+
+
+
+.axis-label text {
+	font-size: 10px;
+}
+
+.chrt-annotation {
+	font-size: 10px;
+	line-height: 1;
+	text-align: center;
+	transform: translate3d(-50%, calc(-100% - 5px), 0);
+}
+
+.chrt-annotation span span {
+	text-decoration: underline;
+}
+
+.chrt-annotation.thisWeek {
+	background: white;
+	transform: translate3d(-50%, calc(-100% - 5px), 0);
+}
+
+
+
+.chrt-annotation.thisWeek {
+	background: white;
+	transform: translate3d(-50%, calc(-100% - 5px), 0);
+}
+
+.wrapper > .chart:nth-child(odd) .chrt-annotation.thisWeek {
+	background: #fcfcfc;
+}
+
+/* .chrt-axis-title.title {
+	font-size: 12px;
+	font-weight: 400;
+	text-transform: uppercase;
+} */

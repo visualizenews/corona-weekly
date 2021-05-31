@@ -178,9 +178,9 @@
       );
       chart.add(
         chrtAnnotation(`<div>Week of 2/24/2020:<br />First Official<br />Covid Case in Italy</div>`)
-        .top(max)
+        .top(1)
         .left(9)
-        .class('milestone')
+        .class('milestone-3')
       );
       chart.add(
         chrtAnnotation(`<div>Week of 11/2/2020:<br />Lockdowns are now<br />Region-Based</div>`)

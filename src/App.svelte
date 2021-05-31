@@ -317,7 +317,7 @@
 
 <main>
 	<div class="wrapper">
-		<h1>Weekly Progression since January 1<span>st</span>, 2021</h1>
+		<h1>Italy: Weekly Covid19 Progression since January 1<span>st</span>, 2021</h1>
 		{#if data !== undefined}
 			{#each CHARTS as chart, i}
 				<div class="chart" id="wrapper-{chart.id}">
@@ -338,7 +338,7 @@
 	<br />
 	<br />
 	<div class="wrapper wrapper2">
-		<h1>Comparing Weekly Progression Years <span class="y2020">2020</span> vs <span class="y2021">2021</span></h1>
+		<h1>Italy: Comparing Weekly Covid19 Progression Years <span class="y2020">2020</span> vs <span class="y2021">2021</span></h1>
 		{#if data !== undefined}
 			{#each CHARTS as chart, i}
 				<div class="chart chart2" id="wrapper-{chart.id}">
@@ -447,7 +447,7 @@
 						r="1"
 						cx="3"
 						cy="3"
-						fill="#ababab"
+						fill="#9a9a9a"
 						stroke="transparent"
 						stroke-width="0" />
 				</pattern>
@@ -528,7 +528,7 @@
 	}
 
 	.y2020 {
-		color: #ababab;
+		color: #9a9a9a;
 		font-weight: 700;
 	}
 

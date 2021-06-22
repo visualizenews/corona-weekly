@@ -17,13 +17,13 @@
 		{
 			id: 'hospitals',
 			label: 'Highest Increment of<br /><span>Hospital Bed occupancy</span>',
-			label2: 'Highest Number of <span>Hospital Bed occupancy</span>',
+			label2: 'Highest Number of Weekly<br />Average <span>Hospital Bed occupancy</span>',
 			title: 'Hospital Bed occupancy',
 		},
 		{
 			id: 'icus',
 			label: 'Highest Increment of<br /><span>ICU Beds occupancy</span>',
-			label2: 'Highest Number<br />of <span>ICU Beds occupancy</span>',
+			label2: 'Highest Number<br />of Weekly Average <span>ICU Beds occupancy</span>',
 			title: 'ICU Bed occupancy',
 		},
 		{
@@ -221,6 +221,7 @@
 				tmpIcus = {};
 				tmpHospitals = {};
 				tmpTests = {};
+				let numberOfDays = 0;
 
 				rawData.italy.global.forEach((d, i) => {
 					const currentDay = new Date(d.datetime);
@@ -231,19 +232,32 @@
 							if (refYear === 2020) {
 								data2020.cases.push(tmpCases);
 								data2020.fatalities.push(tmpFatalities);
-								data2020.hospitals.push(tmpHospitals);
-								data2020.icus.push(tmpIcus);
+								data2020.hospitals.push((() => {
+									tmpHospitals.value = tmpHospitals.value > 0 ? Math.floor(tmpHospitals.value / numberOfDays) : 0;
+									return tmpHospitals;
+								})());
+								data2020.icus.push((() => {
+									tmpIcus.value = tmpIcus.value > 0 ? Math.floor(tmpIcus.value / numberOfDays) : 0;
+									return tmpIcus;
+								})());
 								data2020.tests.push(tmpTests);
 							} else if (refYear === 2021) {
 								data2021.cases.push(tmpCases);
 								data2021.fatalities.push(tmpFatalities);
-								data2021.hospitals.push(tmpHospitals);
-								data2021.icus.push(tmpIcus);
+								data2021.hospitals.push((() => {
+									tmpHospitals.value = tmpHospitals.value > 0 ? Math.floor(tmpHospitals.value / numberOfDays) : 0;
+									return tmpHospitals;
+								})());
+								data2021.icus.push((() => {
+									tmpIcus.value = tmpIcus.value > 0 ? Math.floor(tmpIcus.value / numberOfDays) : 0;
+									return tmpIcus;
+								})());
 								data2021.tests.push(tmpTests);
 							}
 						}
 						refYear = year;
 						week = thisWeek;
+						numberOfDays = 0;
 
 						tmpCases = {
 							datetime: currentDay,
@@ -301,10 +315,11 @@
 							return tmpTests.value + ((i === 0) ? d.tested : d.tested - (rawData.italy.global[i - 1].tested));
 						}
 						return tmpTests.value;
-					})()
+					})();
+					numberOfDays += 1;
 				});
 
-				console.log(data, data2020, data2021);
+				console.log(data2020, data2021);
 
       }).catch((e) => {
 				console.log("error", e);
@@ -447,7 +462,7 @@
 						r="1"
 						cx="3"
 						cy="3"
-						fill="#9a9a9a"
+						fill="#bcbcbc"
 						stroke="transparent"
 						stroke-width="0" />
 				</pattern>

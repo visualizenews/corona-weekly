@@ -24,10 +24,10 @@ body {
 	font-size: 10px;
 	line-height: 1.25;
 	text-align: center;
-	text-shadow: 2px 0 0 #fff,
-		0 2px 0 #fff,
-		-2px 0 0 #fff,
-		0 -2px 0 #fff;
+	text-shadow: 3px 0 0 #fff,
+		0 3px 0 #fff,
+		-3px 0 0 #fff,
+		0 -3px 0 #fff;
 	transform: translate3d(-50%, calc(-100% - 5px), 0);
 }
 

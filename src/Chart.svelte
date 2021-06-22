@@ -20,7 +20,7 @@
 
   const chart = chrt.Chrt();
 
-  const labelFormat = (d) => `Week ${new Date(data[id][d].startDay).getMonth() + 1}/${new Date(data[id][d].startDay).getDate()}`;
+  const labelFormat = (d) => `${d === 0 ? 'Week' : 'W.'} ${new Date(data[id][d].startDay).getMonth() + 1}/${new Date(data[id][d].startDay).getDate()}`;
 
   onMount(() => {
     const max = Math.max(... data[id].map(d => d.value));

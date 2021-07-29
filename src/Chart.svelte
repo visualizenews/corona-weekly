@@ -22,6 +22,10 @@
 
   const labelFormat = (d) => `${d === 0 ? 'Week' : 'W.'} ${new Date(data[id][d].startDay).getMonth() + 1}/${new Date(data[id][d].startDay).getDate()}`;
 
+  const getPercent = (w1, w2) => {
+    return (w1 - w2) / w1;
+  };
+
   onMount(() => {
     const max = Math.max(... data[id].map(d => d.value));
     const maxObj = data[id].find(d => d.value === max);
@@ -135,7 +139,11 @@
     );
 
     chart.add(
-      chrtAnnotation(`<div>${new Intl.NumberFormat('en-EN').format(data[id][data[id].length -1].value)}</div>`)
+      chrtAnnotation(`<div>${new Intl.NumberFormat('en-EN').format(data[id][data[id].length -1].value)}<br />(${new Intl.NumberFormat('en-EN', {
+        style: 'percent',
+        maximumFractionDigits: 2,
+        signDisplay: 'exceptZero',
+      }).format(getPercent(data[id][data[id].length -1].value,data[id][data[id].length -2].value))} <sup>*</sup>)</div>`)
       .top(data[id][data[id].length -1].value)
       .left(data[id].length -1)
       .class('thisWeek')

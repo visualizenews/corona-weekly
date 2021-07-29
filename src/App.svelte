@@ -340,8 +340,10 @@
 				</div>
 			{/each}
 		{/if}
-		<h4>Data from Italian Civil Protection.
-			Weeks are computed from Friday to Friday, the day the Italian Government and the Italian Scientific Committee review COVID-Related Data.</h4>
+		<h4><sup>*</sup> Over previous week.<br />
+			Data from Italian Civil Protection.
+			Weeks are computed from Friday to Friday, the day the Italian Government and the<br />
+			Italian Scientific Committee review COVID-Related Data.</h4>
 	</div>
 	<br />
 	<br />
